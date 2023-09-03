@@ -1,9 +1,9 @@
-import { Button } from '@/utils/chakra';
+import { HomeSearch } from '@/components/search/homeSearch';
 
 export default function Home() {
   return (
     <>
-      <Button>test</Button>
+      <HomeSearch />
     </>
   );
 }
