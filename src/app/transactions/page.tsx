@@ -1,3 +1,4 @@
+import { TransactionTable } from '@/components/Transaction/TransactionTable';
 import {
   Button,
   Container,
@@ -78,6 +79,7 @@ const Transactions = () => {
             </InputRightElement>
           </InputGroup>
         </HStack>
+        <TransactionTable />
       </Container>
     </>
   );
