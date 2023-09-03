@@ -3,6 +3,7 @@
 import { CacheProvider } from '@chakra-ui/next-js';
 import { ChakraProvider } from '@chakra-ui/react';
 import theme from '@/themes/index';
+import React from 'react';
 
 interface Props {
   children: React.ReactNode;

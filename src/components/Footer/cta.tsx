@@ -1,4 +1,4 @@
-import { Grid, GridItem, Wrap } from '@/utils/chakra';
+import { Grid, GridItem } from '@/utils/chakra';
 import Link from 'next/link';
 import React from 'react';
 

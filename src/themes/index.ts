@@ -1,8 +1,8 @@
 'use client';
-import { StyleFunctionProps, extendTheme } from '@chakra-ui/react';
+import { extendTheme } from '@chakra-ui/react';
 
 export const styles = {
-  global: (props: StyleFunctionProps) => ({
+  global: () => ({
     '::-webkit-scrollbar': {
       display: 'none',
     },
