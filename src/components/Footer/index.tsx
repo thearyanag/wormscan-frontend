@@ -9,10 +9,7 @@ export const Footer = () => {
     <>
       <Box
         w={'full'}
-        h={{
-          xl: '16rem',
-          base: '24rem',
-        }}
+        h={['24rem', '24rem', '16rem', '16rem']}
         bg={'rgba(255, 255, 255, 0.05)'}
       >
         <Container
@@ -23,29 +20,23 @@ export const Footer = () => {
             sm: 'xl',
           }}
           display={'flex'}
-          justifyContent={{
-            xl: 'space-between',
-            base: 'space-between',
-            md: 'center',
-            sm: 'center',
-          }}
-          flexDirection={{
-            xl: 'row',
-            base: 'column',
-          }}
+          justifyContent={[
+            'center',
+            'center',
+            'space-between',
+            'space-between',
+          ]}
+          flexDirection={['column', 'column', 'row', 'row', 'row']}
           gap={5}
           h={'full'}
           p={10}
         >
           <VStack
             h={{
-              xl: 'full',
-              base: 'auto',
+              base: 'full',
+              sm: 'auto',
             }}
-            justify={{
-              xl: 'space-between',
-              base: 'start',
-            }}
+            justify={['start', 'start', 'space-between', 'space-between']}
             align={'start'}
           >
             <VStack align={'start'}>
@@ -70,24 +61,44 @@ export const Footer = () => {
           <HStack align={'start'}>
             <CTALinks />
           </HStack>
-          <HStack align={'start'} gap={5}>
-            <Link href={'/discord'}>
+          <VStack
+            h={{
+              base: 'full',
+              sm: 'auto',
+            }}
+            justify={['start', 'start', 'space-between', 'space-between']}
+            align={'start'}
+          >
+            <HStack align={'start'} gap={5}>
+              <Link href={'/discord'}>
+                <Image
+                  src={'/imgs/discord.svg'}
+                  alt={'discord'}
+                  width={25}
+                  height={25}
+                />
+              </Link>
+              <Link href={'/twitter'}>
+                <Image
+                  src={'/imgs/twitter.svg'}
+                  alt={'twitter'}
+                  width={25}
+                  height={25}
+                />
+              </Link>
+            </HStack>
+            <HStack>
+              <Text color={'#9CA3AF'}>Built on</Text>
               <Image
-                src={'/imgs/discord.svg'}
-                alt={'discord'}
-                width={25}
-                height={25}
+                alt="wormhole"
+                width={15}
+                height={15}
+                priority
+                src={'/imgs/wormhole.svg'}
               />
-            </Link>
-            <Link href={'/twitter'}>
-              <Image
-                src={'/imgs/twitter.svg'}
-                alt={'twitter'}
-                width={25}
-                height={25}
-              />
-            </Link>
-          </HStack>
+              <Text color={'white'}>Wormhole</Text>
+            </HStack>
+          </VStack>
         </Container>
       </Box>
     </>
