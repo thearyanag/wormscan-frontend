@@ -12,8 +12,8 @@ import React from 'react';
 export const HomeSearch = () => {
   return (
     <>
-      <Container w={'full'} maxW={'7xl'} mt={['1rem', '1rem', '3rem', '3rem']}>
-        <Box position={'relative'} w={'xl'} mx="auto" color={'#B5A7DE'}>
+      <Container w={'full'} maxW={'7xl'}>
+        <Box position={'relative'} maxW={'xl'} mx="auto" color={'#B5A7DE'}>
           <InputGroup
             bg={'#170F30'}
             boxShadow={'5px 4px 20px 0px rgba(0, 0, 0, 0.25)'}
