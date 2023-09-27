@@ -1,5 +1,7 @@
+'use client';
 import { Button, HStack, Td, Text, Tr, VStack } from '@/utils/chakra';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import React from 'react';
 
 const Icons = () => {
@@ -41,9 +43,16 @@ const Icons = () => {
 };
 
 export const TransactionRow = () => {
+  const router = useRouter();
   return (
     <>
-      <Tr>
+      <Tr
+        _hover={{
+          bg: '#ffffff1A',
+          cursor: 'pointer',
+        }}
+        onClick={() => router.push('/transactions/adfadsfasdfaddfa')}
+      >
         <Td>
           <Text fontSize={'sm'} color={'#7A4EF3'}>
             dbbb7s....d2f89
