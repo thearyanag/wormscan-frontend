@@ -24,7 +24,11 @@ export const GridStats = ({ isPositive, label, percentage, value }: Props) => {
             fontWeight={600}
             fontSize={'2xl'}
           >
-            {value}
+            {value > 1000000
+              ? `${(value / 1000000).toFixed(2)}M`
+              : value > 1000
+              ? `${(value / 1000).toFixed(2)}K`
+              : value}
           </Text>
           <Text color={color}>
             {isPositive ? (
