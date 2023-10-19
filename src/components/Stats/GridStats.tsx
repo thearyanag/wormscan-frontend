@@ -4,10 +4,11 @@ import React from 'react';
 
 interface Props {
   label: string;
-  value: string;
+  value: number;
   percentage: string;
   isPositive: boolean;
 }
+
 export const GridStats = ({ isPositive, label, percentage, value }: Props) => {
   const color = isPositive ? '#10B981' : '#F43F5E';
   return (
