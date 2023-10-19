@@ -53,7 +53,7 @@ interface Props {
   source_address: string;
   destination_chain: string;
   destination_address: string;
-  amount: string;
+  amount: number;
   origin_app: string;
   status: string;
   time: string;
@@ -130,7 +130,11 @@ export const TransactionRow = ({tx_hash,source_chain,source_address,destination_
         </Td>
         <Td>
           <Text color={'white'} fontSize="sm" fontWeight={500}>
-            {time ? ((new Date()) -  (new Date(time))) / 1000 > 60 ? `${Math.floor(((new Date()) -  (new Date(time))) / 1000 / 60)}m` : `${Math.floor(((new Date()) -  (new Date(time))) / 1000)}s` : null}
+            {time ? (
+              ((new Date()).getTime() - (new Date(time)).getTime()) / 1000 > 60 ?
+                `${Math.floor(((new Date()).getTime() - (new Date(time)).getTime()) / 1000 / 60)}m` :
+                `${Math.floor(((new Date()).getTime() - (new Date(time)).getTime()) / 1000)}s`
+            ) : null}
           </Text>
         </Td>
       </Tr>

@@ -13,10 +13,21 @@ import React, { useEffect, useState } from "react";
 
 import { GridStats } from "./GridStats";
 
+interface Data {
+  total_tx_count: number
+  "24h_tx_count": number
+  "24h_volume": number 
+  "24h_messages": number 
+  total_volume: number;
+  tvl: number
+}
+
 export const StatsCard = () => {
   const BACKEND_URL = "https://wormscan.up.railway.app";
 
-  let [data, setData] = useState(null);
+  // let [data, setData] = useState(null);
+
+  let [data, setData] = useState<Data>();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -135,7 +146,7 @@ export const StatsCard = () => {
                 isPositive={true}
                 label={"24hrs TX"}
                 percentage={"+5.0%"}
-                value={data ? data["24h_tx_count"] : "Loading..."}
+                value={data ? data["24h_tx_count"] :0 }
               />
             </GridItem>
             <GridItem>
@@ -143,7 +154,7 @@ export const StatsCard = () => {
                 isPositive={true}
                 label={"Transaction Volume"}
                 percentage={"+5%"}
-                value={data ? data["total_volume"] : "Loading..."}
+                value={data ? data["total_volume"] : 0}
               />
             </GridItem>
             <GridItem>
@@ -151,7 +162,7 @@ export const StatsCard = () => {
                 isPositive={true}
                 label={"24hrs Message Passed"}
                 percentage={"+5%"}
-                value={data ? data["24h_messages"] : "Loading..."}
+                value={data ? data["24h_messages"] : 0}
               />
             </GridItem>
             <GridItem>
@@ -159,7 +170,7 @@ export const StatsCard = () => {
                 isPositive={false}
                 label={"24hrs Volumes"}
                 percentage={"-5.0%"}
-                value={data ? data["24h_volume"] : "Loading..."}
+                value={data ? data["24h_volume"] : 0}
               />
             </GridItem>
             <GridItem>
@@ -167,7 +178,7 @@ export const StatsCard = () => {
                 isPositive={true}
                 label={"Asset Transferred"}
                 percentage={"+5.0%"}
-                value="44,580"
+                value={data ? data["total_volume"] : 0}
               />
             </GridItem>
             <GridItem
