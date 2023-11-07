@@ -2,16 +2,30 @@ import { Box, Grid, GridItem, HStack, Text } from '@/utils/chakra';
 import Image from 'next/image';
 import React from 'react';
 
-export const ByVolume = () => {
+interface Asset {
+  emitterChain: number;
+  symbol: string;
+  tokenChain: number;
+  tokenAddress: string;
+  volume: string;
+}
+
+interface ByAssetProps {
+  topAssets: Asset[];
+}
+
+export const ByVolume: React.FC<ByAssetProps> = ({ topAssets })=> {
   return (
     <>
       <Box w="full" borderRadius={8} bg="rgba(255, 255, 255, 0.05)" p={6}>
         <HStack>
           <Text color={'white'} fontWeight={700} fontSize={20}>
-            Top paths by volume
+            Top Assets by volume
           </Text>
         </HStack>
+        {topAssets && topAssets.map((data, index) => (
         <Grid
+          key={index}
           mt={4}
           templateColumns="repeat(4, 1fr)"
           color={'white'}
@@ -26,7 +40,7 @@ export const ByVolume = () => {
                 alt="ethereum icon"
                 priority
               />
-              <Text>Solana</Text>
+              <Text>{data.emitterChain}</Text>
             </HStack>
           </GridItem>
           <GridItem
@@ -59,12 +73,13 @@ export const ByVolume = () => {
                 alt="ethereum icon"
                 priority
               />
-              <Text>Solana</Text>
+              <Text>{data.symbol}</Text>
             </HStack>
           </GridItem>
           {/* <GridItem></GridItem> */}
-          <GridItem textAlign={'end'}>3444</GridItem>
+          <GridItem textAlign={'end'}>{data.volume}</GridItem>
         </Grid>
+        ))}
       </Box>
     </>
   );
