@@ -5,6 +5,7 @@ import { TransactionRow } from './TransactionRow';
 import { useEffect, useState } from 'react';
 
 interface Data {
+  id: string;
   txHash: string;
   source_chain: string;
   source_address: string;
@@ -79,7 +80,7 @@ export const TransactionTable = () => {
           </Thead>
           <Tbody>
             {!(data.length === 0) ? data.map((row) => (
-              <TransactionRow key={row["txHash"]} tx_hash={row["txHash"]} source_chain={row["standardizedProperties"]? row["standardizedProperties"]["fromChain"] : ""} source_address={row["source_address"]} destination_chain={row["standardizedProperties"]? row["standardizedProperties"]["toChain"] : ""} destination_address={row["standardizedProperties"] ? row["standardizedProperties"]["toAddress"]  : ""} amount={row["usdAmount"]} origin_app={row["standardizedProperties"] ? row["standardizedProperties"]["appIds"] ? row["standardizedProperties"]["appIds"][0] : "" : ""} status={row["globalTx"]["originTx"]["status"]} time={row["timestamp"]}/>
+              <TransactionRow key={row["txHash"]} tx_id={row["id"]} tx_hash={row["txHash"]} source_chain={row["standardizedProperties"]? row["standardizedProperties"]["fromChain"] : ""} source_address={row["source_address"]} destination_chain={row["standardizedProperties"]? row["standardizedProperties"]["toChain"] : ""} destination_address={row["standardizedProperties"] ? row["standardizedProperties"]["toAddress"]  : ""} amount={row["usdAmount"]} origin_app={row["standardizedProperties"] ? row["standardizedProperties"]["appIds"] ? row["standardizedProperties"]["appIds"][0] : "" : ""} status={row["globalTx"]["originTx"]["status"]} time={row["timestamp"]}/>
             )) : ""}
           </Tbody>
         </Table>
@@ -87,3 +88,4 @@ export const TransactionTable = () => {
     </>
   );
 };
+
