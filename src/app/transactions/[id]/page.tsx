@@ -224,7 +224,7 @@ const TxPage = ({ params: { id } }: Props) => {
             Amount
           </Text>
           <Text color={'white'} fontSize={16} fontWeight={500}>
-            {data?.payload.amount} USDC
+            {data?.payload?.amount} USDC
           </Text>
         </HStack>
         <Box
@@ -241,16 +241,16 @@ const TxPage = ({ params: { id } }: Props) => {
         >
           <MovingCard
             type="FROM"
-            address={data?.payload.fromAddress || ''}
-            id={data?.payload.toChain.toString() || '20'}
+            address={data?.payload?.fromAddress || ''}
+            id={data?.payload?.toChain.toString() || '20'}
           />
           <MovingLine />
           <MovingCardWormHole />
           <MovingLine />
           <MovingCard
             type="TO"
-            address={data?.payload.toAddress || ''}
-            id={data?.payload.toChain.toString() || '20'}
+            address={data?.payload?.toAddress || ''}
+            id={data?.payload?.toChain.toString() || '20'}
           />
         </Box>
         <HStack gap={12}>

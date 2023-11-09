@@ -104,7 +104,7 @@ export const TransactionTable = () => {
             {!(data.length === 0)
               ? data.map((row) => (
                   <TransactionRow
-                    tx_id={row['txId']}
+                    tx_id={row['id']}
                     id={row['id']}
                     key={row['txHash']}
                     tx_hash={row['txHash']}

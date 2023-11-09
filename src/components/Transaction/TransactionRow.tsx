@@ -1,9 +1,9 @@
-'use client';
-import { Button, HStack, Td, Text, Tr, VStack } from '@/utils/chakra';
-import Image from 'next/image';
-import { useRouter } from 'next/navigation';
-import React from 'react';
-import { CHAIN_ICON_MAP, CHAIN_ID } from '@/utils/chain';
+"use client";
+import { Button, HStack, Td, Text, Tr, VStack } from "@/utils/chakra";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import React from "react";
+import { CHAIN_ICON_MAP, CHAIN_ID } from "@/utils/chain";
 interface IconsProps {
   tx_hash: string;
   id: string;
@@ -13,24 +13,24 @@ const Icons = ({ tx_hash, id }: IconsProps) => {
   return (
     <HStack>
       <Image
-        src={CHAIN_ICON_MAP[id] || '/token/Ethereum ETH.svg'}
+        src={CHAIN_ICON_MAP[id] || "/token/Ethereum ETH.svg"}
         width={30}
         height={30}
         alt="ethereum icon"
         priority
       />
-      <VStack gap={0} align={'start'}>
+      <VStack gap={0} align={"start"}>
         <Text
-          color={'white'}
-          textTransform={'capitalize'}
+          color={"white"}
+          textTransform={"capitalize"}
           fontWeight={600}
-          fontSize={'sm'}
+          fontSize={"sm"}
         >
-          {CHAIN_ID[id] || 'unset'}
+          {CHAIN_ID[id] || "unset"}
         </Text>
         <HStack>
-          <Text fontSize={'sm'} color={'#7A4EF3'}>
-            {tx_hash.slice(0, 5)}...{tx_hash.slice(-5)}
+          <Text fontSize={"sm"} color={"#7A4EF3"}>
+            {tx_hash?.slice(0, 5)}...{tx_hash?.slice(-5)}
           </Text>
           <Button
             display={"flex"}
@@ -79,7 +79,6 @@ export const TransactionRow = ({
   time,
   id,
 }: Props) => {
-
   const router = useRouter();
   return (
     <>
@@ -88,14 +87,14 @@ export const TransactionRow = ({
           bg: "#ffffff1A",
           cursor: "pointer",
         }}
-        onClick={() => router.push(`/transactions/${id.split('/').join('-')}`)}
+        onClick={() => router.push(`/transactions/${id.split("/").join("-")}`)}
       >
         <Td>
           <Text fontSize={"sm"} color={"#7A4EF3"}>
             {tx_id?.slice(0, 5)}...{tx_id?.slice(-5)}
           </Text>
         </Td>
-        <Td py={1} textAlign={'start'}>
+        <Td py={1} textAlign={"start"}>
           <Icons id={source_chain} tx_hash={tx_hash} />
         </Td>
         <Td>
@@ -106,7 +105,7 @@ export const TransactionRow = ({
             height={10}
           />
         </Td>
-        <Td py={1} textAlign={'start'}>
+        <Td py={1} textAlign={"start"}>
           <Icons id={source_chain} tx_hash={tx_hash} />
         </Td>
         <Td>
@@ -138,7 +137,7 @@ export const TransactionRow = ({
           </VStack>
         </Td>
         <Td>
-          <Text color={'white'} fontSize="sm" fontWeight={500}>
+          <Text color={"white"} fontSize="sm" fontWeight={500}>
             {time
               ? (new Date().getTime() - new Date(time).getTime()) / 1000 > 60
                 ? `${Math.floor(
