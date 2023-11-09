@@ -62,6 +62,7 @@ interface Props {
   origin_app: string;
   status: string;
   time: string;
+  id: string;
 }
 
 export const TransactionRow = ({
@@ -74,6 +75,7 @@ export const TransactionRow = ({
   origin_app,
   status,
   time,
+  id,
 }: Props) => {
   console.log('tx_hash', tx_hash);
   console.log('source_chain', source_chain);
@@ -93,7 +95,7 @@ export const TransactionRow = ({
           bg: '#ffffff1A',
           cursor: 'pointer',
         }}
-        onClick={() => router.push(`/transactions/${tx_hash}`)}
+        onClick={() => router.push(`/transactions/${id.split('/').join('-')}`)}
       >
         <Td>
           <Text fontSize={'sm'} color={'#7A4EF3'}>
@@ -101,7 +103,7 @@ export const TransactionRow = ({
           </Text>
         </Td>
         <Td py={1} textAlign={'start'}>
-          <Icons id={source_chain} chain={source_address} tx_hash={tx_hash} />
+          <Icons id={source_chain} tx_hash={tx_hash} />
         </Td>
         <Td>
           <Image
@@ -112,11 +114,7 @@ export const TransactionRow = ({
           />
         </Td>
         <Td py={1} textAlign={'start'}>
-          <Icons
-            id={source_chain}
-            chain={destination_address}
-            tx_hash={tx_hash}
-          />
+          <Icons id={source_chain} tx_hash={tx_hash} />
         </Td>
         <Td>
           <Text color={'white'} fontSize="sm" fontWeight={500}>

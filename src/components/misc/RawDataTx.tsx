@@ -1,8 +1,11 @@
 'use client';
-import { Box, Button, Code, Text, VStack } from '@/utils/chakra';
+import { Box, Button, Text, VStack } from '@/utils/chakra';
 import React, { useState } from 'react';
 
-export const RawDataTx = () => {
+interface Props {
+  data: any;
+}
+export const RawDataTx = ({ data }: Props) => {
   const [rawIsOpen, setRawIsOpen] = useState<boolean>(false);
 
   return (
@@ -54,8 +57,10 @@ export const RawDataTx = () => {
         </Box>
         {rawIsOpen && (
           <>
-            <Box p={3} w={'full'}>
-              <Code w={'full'} bg="#0F172A" color="#5EEAD4" p={1}></Code>
+            <Box p={3} maxW={'100vw'} bg="#0F172A" overflow={'scroll'} w="full">
+              <Box p={1} color="#5EEAD4" w={'full'}>
+                <pre>{JSON.stringify(data, null, 2)}</pre>
+              </Box>
             </Box>
           </>
         )}

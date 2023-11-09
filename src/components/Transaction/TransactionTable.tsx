@@ -1,5 +1,14 @@
 'use client';
-import { Table, TableContainer, Tbody, Th, Thead, Tr } from '@/utils/chakra';
+import {
+  Center,
+  Spinner,
+  Table,
+  TableContainer,
+  Tbody,
+  Th,
+  Thead,
+  Tr,
+} from '@/utils/chakra';
 import React from 'react';
 import { TransactionRow } from './TransactionRow';
 import { useEffect, useState } from 'react';
@@ -25,6 +34,7 @@ interface Data {
   };
   origin_app: string;
   timestamp: string;
+  id: string;
 }
 
 export const TransactionTable = () => {
@@ -33,17 +43,32 @@ export const TransactionTable = () => {
   // let [data, setData] = useState(null);
 
   let [data, setData] = useState<Data[]>([]);
+  let [loading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(`${BACKEND_URL}/tx`);
-      const json = await response.json();
-      setData(json['transactions']);
+      try {
+        setIsLoading(true);
+        const response = await fetch(`${BACKEND_URL}/tx`);
+        const json = await response.json();
+        setData(json['transactions']);
+        setIsLoading(false);
+      } catch (error) {
+        setIsLoading(false);
+      }
     };
 
     fetchData();
   }, []);
-
+  if (loading) {
+    return (
+      <>
+        <Center>
+          <Spinner color="white" />
+        </Center>
+      </>
+    );
+  }
   return (
     <>
       <TableContainer mt={10} borderTopRadius={'8px'}>
@@ -78,6 +103,7 @@ export const TransactionTable = () => {
             {!(data.length === 0)
               ? data.map((row) => (
                   <TransactionRow
+                    id={row['id']}
                     key={row['txHash']}
                     tx_hash={row['txHash']}
                     source_chain={
