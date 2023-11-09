@@ -3,29 +3,34 @@ import { Button, HStack, Td, Text, Tr, VStack } from '@/utils/chakra';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import React from 'react';
-
+import { CHAIN_ICON_MAP, CHAIN_ID } from '@/utils/chain';
 interface IconsProps {
-  chain: string;
   tx_hash: string;
+  id: string;
 }
 
-const Icons = ({chain,tx_hash} : IconsProps) => {
+const Icons = ({ tx_hash, id }: IconsProps) => {
   return (
     <HStack>
       <Image
-        src={'/token/Ethereum ETH.svg'}
+        src={CHAIN_ICON_MAP[id] || '/token/Ethereum ETH.svg'}
         width={30}
         height={30}
         alt="ethereum icon"
         priority
       />
       <VStack gap={0} align={'start'}>
-        <Text color={'white'} fontSize={'sm'}>
-          {chain}
+        <Text
+          color={'white'}
+          textTransform={'capitalize'}
+          fontWeight={600}
+          fontSize={'sm'}
+        >
+          {CHAIN_ID[id] || 'unset'}
         </Text>
         <HStack>
           <Text fontSize={'sm'} color={'#7A4EF3'}>
-          {tx_hash.slice(0, 5)}...{tx_hash.slice(-5)}
+            {tx_hash.slice(0, 5)}...{tx_hash.slice(-5)}
           </Text>
           <Button
             display={'flex'}
@@ -59,17 +64,26 @@ interface Props {
   time: string;
 }
 
-export const TransactionRow = ({tx_hash,source_chain,source_address,destination_chain,destination_address,amount,origin_app,status,time} : Props) => {
-
-  console.log("tx_hash", tx_hash);
-  console.log("source_chain", source_chain);
-  console.log("source_address", source_address);
-  console.log("destination_chain", destination_chain);
-  console.log("destination_address", destination_address);
-  console.log("amount", amount);
-  console.log("origin_app", origin_app);
-  console.log("status", status);
-  console.log("time", time);
+export const TransactionRow = ({
+  tx_hash,
+  source_chain,
+  source_address,
+  destination_chain,
+  destination_address,
+  amount,
+  origin_app,
+  status,
+  time,
+}: Props) => {
+  console.log('tx_hash', tx_hash);
+  console.log('source_chain', source_chain);
+  console.log('source_address', source_address);
+  console.log('destination_chain', destination_chain);
+  console.log('destination_address', destination_address);
+  console.log('amount', amount);
+  console.log('origin_app', origin_app);
+  console.log('status', status);
+  console.log('time', time);
 
   const router = useRouter();
   return (
@@ -87,7 +101,7 @@ export const TransactionRow = ({tx_hash,source_chain,source_address,destination_
           </Text>
         </Td>
         <Td py={1} textAlign={'start'}>
-          <Icons chain={source_address} tx_hash={tx_hash}/>
+          <Icons id={source_chain} chain={source_address} tx_hash={tx_hash} />
         </Td>
         <Td>
           <Image
@@ -98,7 +112,11 @@ export const TransactionRow = ({tx_hash,source_chain,source_address,destination_
           />
         </Td>
         <Td py={1} textAlign={'start'}>
-          <Icons chain={destination_address} tx_hash={tx_hash}/>
+          <Icons
+            id={source_chain}
+            chain={destination_address}
+            tx_hash={tx_hash}
+          />
         </Td>
         <Td>
           <Text color={'white'} fontSize="sm" fontWeight={500}>
@@ -130,11 +148,17 @@ export const TransactionRow = ({tx_hash,source_chain,source_address,destination_
         </Td>
         <Td>
           <Text color={'white'} fontSize="sm" fontWeight={500}>
-            {time ? (
-              ((new Date()).getTime() - (new Date(time)).getTime()) / 1000 > 60 ?
-                `${Math.floor(((new Date()).getTime() - (new Date(time)).getTime()) / 1000 / 60)}m` :
-                `${Math.floor(((new Date()).getTime() - (new Date(time)).getTime()) / 1000)}s`
-            ) : null}
+            {time
+              ? (new Date().getTime() - new Date(time).getTime()) / 1000 > 60
+                ? `${Math.floor(
+                    (new Date().getTime() - new Date(time).getTime()) /
+                      1000 /
+                      60
+                  )}m`
+                : `${Math.floor(
+                    (new Date().getTime() - new Date(time).getTime()) / 1000
+                  )}s`
+              : null}
           </Text>
         </Td>
       </Tr>

@@ -24,13 +24,11 @@ interface Data {
     };
   };
   origin_app: string;
-  status: string;
   timestamp: string;
 }
 
 export const TransactionTable = () => {
-
-  const BACKEND_URL = "https://wormscan.up.railway.app";
+  const BACKEND_URL = 'https://wormscan.up.railway.app';
 
   // let [data, setData] = useState(null);
 
@@ -40,12 +38,11 @@ export const TransactionTable = () => {
     const fetchData = async () => {
       const response = await fetch(`${BACKEND_URL}/tx`);
       const json = await response.json();
-      setData(json["transactions"]);
+      setData(json['transactions']);
     };
 
     fetchData();
   }, []);
-
 
   return (
     <>
@@ -78,9 +75,40 @@ export const TransactionTable = () => {
             </Tr>
           </Thead>
           <Tbody>
-            {!(data.length === 0) ? data.map((row) => (
-              <TransactionRow key={row["txHash"]} tx_hash={row["txHash"]} source_chain={row["standardizedProperties"]? row["standardizedProperties"]["fromChain"] : ""} source_address={row["source_address"]} destination_chain={row["standardizedProperties"]? row["standardizedProperties"]["toChain"] : ""} destination_address={row["standardizedProperties"] ? row["standardizedProperties"]["toAddress"]  : ""} amount={row["usdAmount"]} origin_app={row["standardizedProperties"] ? row["standardizedProperties"]["appIds"] ? row["standardizedProperties"]["appIds"][0] : "" : ""} status={row["globalTx"]["originTx"]["status"]} time={row["timestamp"]}/>
-            )) : ""}
+            {!(data.length === 0)
+              ? data.map((row) => (
+                  <TransactionRow
+                    key={row['txHash']}
+                    tx_hash={row['txHash']}
+                    source_chain={
+                      row['standardizedProperties']
+                        ? row['standardizedProperties']['fromChain']
+                        : ''
+                    }
+                    source_address={row['source_address']}
+                    destination_chain={
+                      row['standardizedProperties']
+                        ? row['standardizedProperties']['toChain']
+                        : ''
+                    }
+                    destination_address={
+                      row['standardizedProperties']
+                        ? row['standardizedProperties']['toAddress']
+                        : ''
+                    }
+                    amount={row['usdAmount']}
+                    origin_app={
+                      row['standardizedProperties']
+                        ? row['standardizedProperties']['appIds']
+                          ? row['standardizedProperties']['appIds'][0]
+                          : ''
+                        : ''
+                    }
+                    status={row.globalTx?.originTx?.status || 'pending'}
+                    time={row['timestamp']}
+                  />
+                ))
+              : ''}
           </Tbody>
         </Table>
       </TableContainer>
