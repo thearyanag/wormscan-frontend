@@ -1,11 +1,20 @@
 'use client';
-import { Table, TableContainer, Tbody, Th, Thead, Tr } from '@/utils/chakra';
+import {
+  Center,
+  Spinner,
+  Table,
+  TableContainer,
+  Tbody,
+  Th,
+  Thead,
+  Tr,
+} from '@/utils/chakra';
 import React from 'react';
 import { TransactionRow } from './TransactionRow';
 import { useEffect, useState } from 'react';
 
 interface Data {
-  id: string;
+  txId: string;
   txHash: string;
   source_chain: string;
   source_address: string;
@@ -25,29 +34,42 @@ interface Data {
     };
   };
   origin_app: string;
-  status: string;
   timestamp: string;
+  id: string;
 }
 
 export const TransactionTable = () => {
-
-  const BACKEND_URL = "https://wormscan.up.railway.app";
+  const BACKEND_URL = 'https://wormscan.up.railway.app';
 
   // let [data, setData] = useState(null);
 
   let [data, setData] = useState<Data[]>([]);
+  let [loading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(`${BACKEND_URL}/tx`);
-      const json = await response.json();
-      setData(json["transactions"]);
+      try {
+        setIsLoading(true);
+        const response = await fetch(`${BACKEND_URL}/tx`);
+        const json = await response.json();
+        setData(json['transactions']);
+        setIsLoading(false);
+      } catch (error) {
+        setIsLoading(false);
+      }
     };
 
     fetchData();
   }, []);
-
-
+  if (loading) {
+    return (
+      <>
+        <Center>
+          <Spinner color="white" />
+        </Center>
+      </>
+    );
+  }
   return (
     <>
       <TableContainer mt={10} borderTopRadius={'8px'}>
@@ -79,9 +101,42 @@ export const TransactionTable = () => {
             </Tr>
           </Thead>
           <Tbody>
-            {!(data.length === 0) ? data.map((row) => (
-              <TransactionRow key={row["txHash"]} tx_id={row["id"]} tx_hash={row["txHash"]} source_chain={row["standardizedProperties"]? row["standardizedProperties"]["fromChain"] : ""} source_address={row["source_address"]} destination_chain={row["standardizedProperties"]? row["standardizedProperties"]["toChain"] : ""} destination_address={row["standardizedProperties"] ? row["standardizedProperties"]["toAddress"]  : ""} amount={row["usdAmount"]} origin_app={row["standardizedProperties"] ? row["standardizedProperties"]["appIds"] ? row["standardizedProperties"]["appIds"][0] : "" : ""} status={row["globalTx"]["originTx"]["status"]} time={row["timestamp"]}/>
-            )) : ""}
+            {!(data.length === 0)
+              ? data.map((row) => (
+                  <TransactionRow
+                    tx_id={row['txId']}
+                    id={row['id']}
+                    key={row['txHash']}
+                    tx_hash={row['txHash']}
+                    source_chain={
+                      row['standardizedProperties']
+                        ? row['standardizedProperties']['fromChain']
+                        : ''
+                    }
+                    source_address={row['source_address']}
+                    destination_chain={
+                      row['standardizedProperties']
+                        ? row['standardizedProperties']['toChain']
+                        : ''
+                    }
+                    destination_address={
+                      row['standardizedProperties']
+                        ? row['standardizedProperties']['toAddress']
+                        : ''
+                    }
+                    amount={row['usdAmount']}
+                    origin_app={
+                      row['standardizedProperties']
+                        ? row['standardizedProperties']['appIds']
+                          ? row['standardizedProperties']['appIds'][0]
+                          : ''
+                        : ''
+                    }
+                    status={row.globalTx?.originTx?.status || 'pending'}
+                    time={row['timestamp']}
+                  />
+                ))
+              : ''}
           </Tbody>
         </Table>
       </TableContainer>

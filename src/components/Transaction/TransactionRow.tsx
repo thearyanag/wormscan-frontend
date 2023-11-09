@@ -1,30 +1,35 @@
-"use client";
-import { Button, HStack, Td, Text, Tr, VStack } from "@/utils/chakra";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
-import React from "react";
-
+'use client';
+import { Button, HStack, Td, Text, Tr, VStack } from '@/utils/chakra';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import React from 'react';
+import { CHAIN_ICON_MAP, CHAIN_ID } from '@/utils/chain';
 interface IconsProps {
-  chain: string;
   tx_hash: string;
+  id: string;
 }
 
-const Icons = ({ chain, tx_hash }: IconsProps) => {
+const Icons = ({ tx_hash, id }: IconsProps) => {
   return (
     <HStack>
       <Image
-        src={"/token/Ethereum ETH.svg"}
+        src={CHAIN_ICON_MAP[id] || '/token/Ethereum ETH.svg'}
         width={30}
         height={30}
         alt="ethereum icon"
         priority
       />
-      <VStack gap={0} align={"start"}>
-        <Text color={"white"} fontSize={"sm"}>
-          {chain}
+      <VStack gap={0} align={'start'}>
+        <Text
+          color={'white'}
+          textTransform={'capitalize'}
+          fontWeight={600}
+          fontSize={'sm'}
+        >
+          {CHAIN_ID[id] || 'unset'}
         </Text>
         <HStack>
-          <Text fontSize={"sm"} color={"#7A4EF3"}>
+          <Text fontSize={'sm'} color={'#7A4EF3'}>
             {tx_hash.slice(0, 5)}...{tx_hash.slice(-5)}
           </Text>
           <Button
@@ -58,20 +63,24 @@ interface Props {
   origin_app: string;
   status: string;
   time: string;
+  id: string;
 }
 
 export const TransactionRow = ({
-  tx_hash,
-  source_address,
   tx_id,
+  tx_hash,
+  source_chain,
+  source_address,
+  destination_chain,
   destination_address,
   amount,
   origin_app,
   status,
   time,
+  id,
 }: Props) => {
+
   const router = useRouter();
-  console.log(tx_id)
   return (
     <>
       <Tr
@@ -79,15 +88,15 @@ export const TransactionRow = ({
           bg: "#ffffff1A",
           cursor: "pointer",
         }}
-        onClick={() => router.push(`/transactions/${tx_hash}`)}
+        onClick={() => router.push(`/transactions/${id.split('/').join('-')}`)}
       >
         <Td>
           <Text fontSize={"sm"} color={"#7A4EF3"}>
             {tx_id?.slice(0, 5)}...{tx_id?.slice(-5)}
           </Text>
         </Td>
-        <Td py={1} textAlign={"start"}>
-          <Icons chain={source_address} tx_hash={tx_hash} />
+        <Td py={1} textAlign={'start'}>
+          <Icons id={source_chain} tx_hash={tx_hash} />
         </Td>
         <Td>
           <Image
@@ -97,8 +106,8 @@ export const TransactionRow = ({
             height={10}
           />
         </Td>
-        <Td py={1} textAlign={"start"}>
-          <Icons chain={`${destination_address.slice(0,10)}...${destination_address.slice(-10)}...`} tx_hash={tx_hash} />
+        <Td py={1} textAlign={'start'}>
+          <Icons id={source_chain} tx_hash={tx_hash} />
         </Td>
         <Td>
           <Text color={"white"} fontSize="sm" fontWeight={500}>
@@ -129,7 +138,7 @@ export const TransactionRow = ({
           </VStack>
         </Td>
         <Td>
-          <Text color={"white"} fontSize="sm" fontWeight={500}>
+          <Text color={'white'} fontSize="sm" fontWeight={500}>
             {time
               ? (new Date().getTime() - new Date(time).getTime()) / 1000 > 60
                 ? `${Math.floor(

@@ -99,7 +99,7 @@ const TxLayout = ({ children }: Props) => {
             Transfer With Payload
           </Tag>
         </HStack>
-        <HStack gap={3}>
+        {/* <HStack gap={3}>
           <Box>
             <svg
               width="16"
@@ -123,7 +123,7 @@ const TxLayout = ({ children }: Props) => {
           <Text color={'#10B981'} fontSize={16} fontWeight={500}>
             Recieved in 11 minutes 10 seconds
           </Text>
-        </HStack>
+        </HStack> */}
         {children}
       </Box>
     </>
