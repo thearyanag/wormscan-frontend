@@ -33,6 +33,8 @@ interface Data {
       status: string;
     };
   };
+  emitterNativeAddress: string;
+  emitterChain: string;
   origin_app: string;
   timestamp: string;
   id: string;
@@ -87,7 +89,7 @@ export const TransactionTable = () => {
                 TO
               </Th>
               <Th color={'#B5A7DE'} fontWeight={500} fontSize={'sm'}>
-                AMOUNT
+                AMOUNT (USDC)
               </Th>
               <Th color={'#B5A7DE'} fontWeight={500} fontSize={'sm'}>
                 ORIGIN APP
@@ -109,11 +111,9 @@ export const TransactionTable = () => {
                     key={row['txHash']}
                     tx_hash={row['txHash']}
                     source_chain={
-                      row['standardizedProperties']
-                        ? row['standardizedProperties']['fromChain']
-                        : ''
+                      row['emitterChain']
                     }
-                    source_address={row['source_address']}
+                    source_address={row['emitterNativeAddress']}
                     destination_chain={
                       row['standardizedProperties']
                         ? row['standardizedProperties']['toChain']

@@ -68,8 +68,11 @@ interface Props {
 
 export const TransactionRow = ({
   tx_id,
-  tx_hash,
+  // tx_hash,
   source_chain,
+  source_address,
+  destination_chain,
+  destination_address,
   amount,
   origin_app,
   status,
@@ -92,7 +95,7 @@ export const TransactionRow = ({
           </Text>
         </Td>
         <Td py={1} textAlign={"start"}>
-          <Icons id={source_chain} tx_hash={tx_hash} />
+          <Icons id={source_chain} tx_hash={source_address} />
         </Td>
         <Td>
           <Image
@@ -103,11 +106,11 @@ export const TransactionRow = ({
           />
         </Td>
         <Td py={1} textAlign={"start"}>
-          <Icons id={source_chain} tx_hash={tx_hash} />
+          <Icons id={destination_chain} tx_hash={destination_address} />
         </Td>
         <Td>
           <Text color={"white"} fontSize="sm" fontWeight={500}>
-            {amount}
+            {amount || "-----"}
           </Text>
         </Td>
         <Td>

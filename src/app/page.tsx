@@ -1,4 +1,4 @@
-import { AvgTime } from '@/components/Stats/AvgTime';
+// import { AvgTime } from '@/components/Stats/AvgTime';
 import { StatsCard } from '@/components/Stats/StatsCard';
 import { TopByPath } from '@/components/Stats/TopByPath';
 import { HomeSearch } from '@/components/search/homeSearch';
@@ -11,7 +11,7 @@ export default function Home() {
         <HomeSearch />
         <StatsCard />
         <TopByPath />
-        <AvgTime />
+        {/* <AvgTime /> */}
       </VStack>
     </>
   );
