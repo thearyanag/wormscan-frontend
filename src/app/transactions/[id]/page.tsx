@@ -167,6 +167,7 @@ const TxPage = ({ params: { id } }: Props) => {
 
     fetchData();
   }, []);
+
   if (loading) {
     return (
       <>
@@ -241,8 +242,8 @@ const TxPage = ({ params: { id } }: Props) => {
         >
           <MovingCard
             type="FROM"
-            address={data?.payload?.fromAddress || ''}
-            id={data?.payload?.toChain.toString() || '20'}
+            address={data?.emitterNativeAddr || ''}
+            id={data?.emitterChain.toString() || '20'}
           />
           <MovingLine />
           <MovingCardWormHole />

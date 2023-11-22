@@ -1,6 +1,7 @@
 import { Box, Grid, GridItem, HStack, Text } from "@/utils/chakra";
 import Image from "next/image";
 import React from "react";
+import { CHAIN_ICON_MAP , CHAIN_ID } from "@/utils/chain";
 
 interface ChainPair {
   emitterChain: number;
@@ -33,13 +34,13 @@ export const ByTransaction: React.FC<ByTransactionProps> = ({ topPaths }) => {
             <GridItem>
               <HStack>
                 <Image
-                  src={"/token/Ethereum ETH.svg"}
+                  src={CHAIN_ICON_MAP[data.emitterChain] || '/token/Ethereum ETH.svg'}
                   width={30}
                   height={30}
                   alt="ethereum icon"
                   priority
                 />
-                <Text>{data.emitterChain}</Text>
+                <Text>{CHAIN_ID[data.emitterChain].toUpperCase()}</Text>
               </HStack>
             </GridItem>
             <GridItem
@@ -66,13 +67,13 @@ export const ByTransaction: React.FC<ByTransactionProps> = ({ topPaths }) => {
             <GridItem w={"full"}>
               <HStack>
                 <Image
-                  src={"/token/Ethereum ETH.svg"}
+                  src={CHAIN_ICON_MAP[data.destinationChain] || '/token/Ethereum ETH.svg'}
                   width={30}
                   height={30}
                   alt="ethereum icon"
                   priority
                 />
-                <Text>{data.destinationChain}</Text>
+                <Text>{CHAIN_ID[data.destinationChain].toUpperCase()}</Text>
               </HStack>
             </GridItem>
             <GridItem textAlign={"end"}>{data.numberOfTransfers}</GridItem>

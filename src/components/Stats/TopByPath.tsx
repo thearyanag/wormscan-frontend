@@ -10,7 +10,7 @@ interface Asset {
   symbol: string;
   tokenChain: number;
   tokenAddress: string;
-  volume: string;
+  volume: number;
 }
 
 interface ChainPair {

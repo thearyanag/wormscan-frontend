@@ -13,6 +13,12 @@ import React, { useEffect, useState } from "react";
 
 import { GridStats } from "./GridStats";
 
+function formatNumberWithCommas(number : number) {
+  let res =  number.toString().split(".")[0] + "." + (number.toString().split(".")[1]?.slice(0, 2) || "00");
+  return res.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+
 interface Data {
   total_tx_count: number
   "24h_tx_count": number
@@ -97,7 +103,7 @@ export const StatsCard = () => {
                   fontWeight={600}
                   fontSize={"2xl"}
                 >
-                  {data ? data.total_tx_count : "Loading..."}
+                  {data ? formatNumberWithCommas(data.total_tx_count) : "Loading..."}
                 </Text>
               </VStack>
             </Box>
@@ -119,7 +125,7 @@ export const StatsCard = () => {
                   fontWeight={600}
                   fontSize={"2xl"}
                 >
-                  {data ? data.tvl : "Loading..."}
+                  {data ? formatNumberWithCommas(data.tvl) : "Loading..."}
                 </Text>
               </VStack>
             </Box>
