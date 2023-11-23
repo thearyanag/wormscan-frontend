@@ -14,7 +14,7 @@ export const CTALinks = () => {
           <Link href={'/'}>Home</Link>
         </GridItem>
         <GridItem color={'#BABACD'} fontWeight={500} fontSize={'md'}>
-          <Link href={'/contact-us'}>Contact Us</Link>
+          <Link href={'https://twitter.com/WormscanHQ'}>Contact Us</Link>
         </GridItem>
         <GridItem color={'#BABACD'} fontWeight={500} fontSize={'md'}>
           <Link href={'/transactions'}>Transactions</Link>

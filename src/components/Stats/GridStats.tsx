@@ -31,7 +31,7 @@ export const GridStats = ({ isPositive, label, percentage, value }: Props) => {
               ? `${(value / 1000).toFixed(2)}K`
               : value}
           </Text>
-          <Text color={color}>
+          {/* <Text color={color}>
             {isPositive ? (
               <Image
                 src="/imgs/greenArrow.svg"
@@ -47,8 +47,8 @@ export const GridStats = ({ isPositive, label, percentage, value }: Props) => {
                 height={18}
               />
             )}
-          </Text>
-          <Text color={color}>{percentage}</Text>
+          </Text> */}
+          {/* <Text color={color}>{percentage}</Text> */}
         </HStack>
       </VStack>
     </>
