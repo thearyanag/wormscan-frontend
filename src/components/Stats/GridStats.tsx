@@ -1,5 +1,4 @@
 import { HStack, Text, VStack } from '@/utils/chakra';
-import Image from 'next/image';
 import React from 'react';
 
 interface Props {
@@ -10,7 +9,8 @@ interface Props {
 }
 
 export const GridStats = ({ isPositive, label, percentage, value }: Props) => {
-  const color = isPositive ? '#10B981' : '#F43F5E';
+  console.log(isPositive,percentage)
+  // const color = isPositive ? '#10B981' : '#F43F5E';
   return (
     <>
       <VStack align={'start'} gap={1}>
@@ -31,7 +31,7 @@ export const GridStats = ({ isPositive, label, percentage, value }: Props) => {
               ? `${(value / 1000).toFixed(2)}K`
               : value}
           </Text>
-          <Text color={color}>
+          {/* <Text color={color}>
             {isPositive ? (
               <Image
                 src="/imgs/greenArrow.svg"
@@ -47,8 +47,8 @@ export const GridStats = ({ isPositive, label, percentage, value }: Props) => {
                 height={18}
               />
             )}
-          </Text>
-          <Text color={color}>{percentage}</Text>
+          </Text> */}
+          {/* <Text color={color}>{percentage}</Text> */}
         </HStack>
       </VStack>
     </>

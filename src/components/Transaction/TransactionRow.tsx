@@ -119,20 +119,21 @@ export const TransactionRow = ({
           </Text>
         </Td>
         <Td>
-          <VStack gap={0}>
+          <VStack gap={0.5}>
             <Text color={"#10B981"} fontSize="sm" fontWeight={500}>
               {status.toLocaleUpperCase()}
             </Text>
             <HStack align={"center"} gap={1}>
-              <Image
+              {/* <Image
                 src={"/imgs/statusIcon.svg"}
                 alt="status icon"
                 width={15}
                 height={15}
-              />
-              <Text color={"#AAAAAA"} fontSize="sm" fontWeight={500}>
+              /> */}
+
+              {/* <Text color={"#AAAAAA"} fontSize="sm" fontWeight={500}>
                 1m 1s
-              </Text>
+              </Text> */}
             </HStack>
           </VStack>
         </Td>
