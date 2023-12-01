@@ -10,10 +10,49 @@ const haken = Hanken_Grotesk({
   subsets: ['latin'], 
   weight: ['500'],
 });
+
+const APP_NAME = 'Wormscan';
+const APP_DEFAULT_TITLE = 'Wormscan';
+const APP_TITLE_TEMPLATE = '';
+const APP_DESCRIPTION = 'Your friendly cross-chain explorer.';
+
 export const metadata: Metadata = {
-  title: 'Wormscan',
-  description: 'Your friendly cross-chain explorer',
-  metadataBase: new URL('https://wormscan.co'),
+  metadataBase : new URL('https://wormscan.co'),
+  applicationName: APP_NAME,
+  title: {
+    default: APP_DEFAULT_TITLE,
+    template: APP_TITLE_TEMPLATE,
+  },
+  description: APP_DESCRIPTION,
+  manifest: '/manifest.json',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'default',
+    title: APP_DEFAULT_TITLE,
+    // startUpImage: [],
+  },
+  formatDetection: {
+    telephone: false,
+  },
+  openGraph: {
+    type: 'website',
+    siteName: APP_NAME,
+    title: {
+      default: APP_DEFAULT_TITLE,
+      template: APP_TITLE_TEMPLATE,
+    },
+    description: APP_DESCRIPTION,
+    images: "./twitter-image.png"
+  },
+  twitter: {
+    card: 'summary',
+    title: {
+      default: APP_DEFAULT_TITLE,
+      template: APP_TITLE_TEMPLATE,
+    },
+    description: APP_DESCRIPTION,
+    images: "./twitter-image.png",
+  },
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
