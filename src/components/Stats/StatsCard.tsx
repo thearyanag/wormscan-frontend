@@ -29,7 +29,7 @@ interface Data {
 }
 
 export const StatsCard = () => {
-  const BACKEND_URL = "https://wormscan.up.railway.app";
+  const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
   // let [data, setData] = useState(null);
 
