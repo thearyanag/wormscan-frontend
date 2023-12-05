@@ -59,7 +59,7 @@ export const TransactionTable = () => {
       try {
         setIsLoading(true);
         const response = await fetch(
-          `${BACKEND_URL}/tx?page=${searchParams.get('page')}`
+          `${BACKEND_URL}/tx?page=${searchParams.get('page') || 1}`
         );
         const json = await response.json();
         setData(json['transactions']);

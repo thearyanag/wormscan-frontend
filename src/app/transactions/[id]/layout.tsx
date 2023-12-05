@@ -1,3 +1,4 @@
+'use client';
 import {
   Box,
   Button,
@@ -10,12 +11,15 @@ import {
   Text,
 } from '@/utils/chakra';
 import Image from 'next/image';
-import React, { ReactNode } from 'react';
+import { useRouter } from 'next/navigation';
+import React, { ReactNode, useState } from 'react';
 
 interface Props {
   children: ReactNode;
 }
 const TxLayout = ({ children }: Props) => {
+  const [value, setValue] = useState<string>('');
+  const router = useRouter();
   return (
     <>
       <Box w="full" maxW={'7xl'} mx="auto" px={4}>
@@ -36,7 +40,9 @@ const TxLayout = ({ children }: Props) => {
             color={'#B5A7DE'}
           >
             <Input
+              onChange={(e) => setValue(e.target.value)}
               border={'none'}
+              pr={10}
               _focus={{
                 border: 'none',
                 outline: 'none',
@@ -62,7 +68,12 @@ const TxLayout = ({ children }: Props) => {
               }}
               placeholder="Search VAA, address and transactions"
             />
-            <InputRightElement>
+            <InputRightElement
+              onClick={() => {
+                const searchUrl = `/transactions/${value}`;
+                router.push(searchUrl);
+              }}
+            >
               <Button
                 display={'flex'}
                 justifyContent={'center'}
