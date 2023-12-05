@@ -1,3 +1,4 @@
+'use client';
 import { TransactionTable } from '@/components/Transaction/TransactionTable';
 import {
   Button,
@@ -9,9 +10,12 @@ import {
   Text,
 } from '@/utils/chakra';
 import Image from 'next/image';
-import React from 'react';
+import { useRouter } from 'next/navigation';
+import React, { useState } from 'react';
 
 const Transactions = () => {
+  const [value, setValue] = useState<string>('');
+  const router = useRouter();
   return (
     <>
       <Container mt={10} maxW={'7xl'}>
@@ -36,10 +40,12 @@ const Transactions = () => {
           >
             <Input
               border={'none'}
+              onChange={(e) => setValue(e.target.value)}
               _focus={{
                 border: 'none',
                 outline: 'none',
               }}
+              pr={10}
               _focusVisible={{
                 border: 'none',
                 outline: 'none',
@@ -61,7 +67,12 @@ const Transactions = () => {
               }}
               placeholder="Search VAA, address and transactions"
             />
-            <InputRightElement>
+            <InputRightElement
+              onClick={() => {
+                const searchUrl = `/transactions/${value}`;
+                router.push(searchUrl);
+              }}
+            >
               <Button
                 display={'flex'}
                 justifyContent={'center'}

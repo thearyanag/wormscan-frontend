@@ -256,7 +256,7 @@ const TxPage = ({ params: { id } }: Props) => {
           <MovingCard
             type="TO"
             address={data?.payload?.toAddress || ''}
-            id={data?.payload?.toChain.toString() || '20'}
+            id={data?.payload?.toChain?.toString() || '20'}
           />
         </Box>
         <HStack gap={12}>
