@@ -142,9 +142,7 @@ interface Props {
 }
 
 const TxPage = ({ params: { id } }: Props) => {
-  const BACKEND_URL = 'https://wormscan.up.railway.app';
-
-  // let [data, setData] = useState(null);
+  const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
   let [data, setData] = useState<TransferObject | null>(null);
   const [loading, setIsLoading] = useState<boolean>(false);
@@ -153,9 +151,16 @@ const TxPage = ({ params: { id } }: Props) => {
     const fetchData = async () => {
       try {
         setIsLoading(true);
-        const response = await fetch(
+        let response;
+        if(id.split('-').length > 0) {
+         response = await fetch(
           `${BACKEND_URL}/tx/${id.split('-').join('/')}`
         );
+        } else {
+          response = await fetch(
+            `${BACKEND_URL}/tx/${id}`
+          );
+        }
         const json = await response.json();
         setData(json['data']);
         setIsLoading(false);
