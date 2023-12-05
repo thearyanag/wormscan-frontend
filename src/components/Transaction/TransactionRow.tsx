@@ -83,6 +83,7 @@ export const TransactionRow = ({
   return (
     <>
       <Tr
+      key={id}
         _hover={{
           bg: '#ffffff1A',
           cursor: 'pointer',

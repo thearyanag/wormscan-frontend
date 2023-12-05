@@ -59,7 +59,7 @@ export const TransactionTable = () => {
       try {
         setIsLoading(true);
         const response = await fetch(
-          `${BACKEND_URL}/tx?page=${searchParams.get('page') || 1}`
+          `${BACKEND_URL}/tx?page=${searchParams?.get('page') || 1}`
         );
         const json = await response.json();
         setData(json['transactions']);
@@ -70,7 +70,7 @@ export const TransactionTable = () => {
     };
 
     fetchData();
-  }, [searchParams.get('page')]);
+  }, [searchParams?.get('page')]);
   if (loading) {
     return (
       <>
@@ -155,7 +155,7 @@ export const TransactionTable = () => {
           textColor={'white'}
           w={32}
           onClick={() => {
-            const page = searchParams.get('page');
+            const page = searchParams?.get('page');
             if (!page || page === '1') {
               return;
             }
@@ -189,7 +189,7 @@ export const TransactionTable = () => {
           textColor={'white'}
           w={32}
           onClick={() => {
-            const page = searchParams.get('page');
+            const page = searchParams?.get('page');
             if (!page) {
               router.push(`/transactions?page=1`);
               return;

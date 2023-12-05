@@ -152,15 +152,15 @@ const TxPage = ({ params: { id } }: Props) => {
       try {
         setIsLoading(true);
         let response;
-        if(id.split('-').length > 0) {
-         response = await fetch(
-          `${BACKEND_URL}/tx/${id.split('-').join('/')}`
-        );
-        } else {
+        // if(id.split('-').length > 0) {
+        //  response = await fetch(
+        //   `${BACKEND_URL}/tx/${id.split('-').join('/')}`
+        // );
+        // } else {
           response = await fetch(
             `${BACKEND_URL}/tx/${id}`
           );
-        }
+        // }
         const json = await response.json();
         setData(json['data']);
         setIsLoading(false);
