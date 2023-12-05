@@ -1,6 +1,9 @@
 'use client';
 import {
+  Box,
+  Button,
   Center,
+  HStack,
   Spinner,
   Table,
   TableContainer,
@@ -12,6 +15,7 @@ import {
 import React from 'react';
 import { TransactionRow } from './TransactionRow';
 import { useEffect, useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 interface Data {
   txId: string;
@@ -46,13 +50,17 @@ export const TransactionTable = () => {
   // let [data, setData] = useState(null);
 
   let [data, setData] = useState<Data[]>([]);
+  const searchParams = useSearchParams();
   let [loading, setIsLoading] = useState<boolean>(false);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         setIsLoading(true);
-        const response = await fetch(`${BACKEND_URL}/tx`);
+        const response = await fetch(
+          `${BACKEND_URL}/tx?page=${searchParams.get('page')}`
+        );
         const json = await response.json();
         setData(json['transactions']);
         setIsLoading(false);
@@ -62,7 +70,7 @@ export const TransactionTable = () => {
     };
 
     fetchData();
-  }, []);
+  }, [searchParams.get('page')]);
   if (loading) {
     return (
       <>
@@ -74,7 +82,7 @@ export const TransactionTable = () => {
   }
   return (
     <>
-      <TableContainer mt={10} borderTopRadius={'8px'}>
+      <TableContainer my={10} borderTopRadius={'8px'}>
         <Table variant="unstyled">
           <Thead borderBottom={'0px'} bg={'rgba(255, 255, 255, 0.10)'}>
             <Tr>
@@ -110,9 +118,7 @@ export const TransactionTable = () => {
                     id={row['id']}
                     key={row['txHash']}
                     tx_hash={row['txHash']}
-                    source_chain={
-                      row['emitterChain']
-                    }
+                    source_chain={row['emitterChain']}
                     source_address={row['emitterNativeAddress']}
                     destination_chain={
                       row['standardizedProperties']
@@ -140,7 +146,77 @@ export const TransactionTable = () => {
           </Tbody>
         </Table>
       </TableContainer>
+      <HStack justify={'end'} mb={10} gap={3}>
+        <Button
+          variant={'outline'}
+          _hover={{
+            bg: '#ffffff40',
+          }}
+          textColor={'white'}
+          w={32}
+          onClick={() => {
+            const page = searchParams.get('page');
+            if (!page || page === '1') {
+              return;
+            }
+            router.push(`/transactions?page=${parseInt(page) - 1}`);
+          }}
+        >
+          <Box display={'flex'} justifyContent={'center'} alignItems={'center'}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              width={20}
+              height={20}
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M15.75 19.5L8.25 12l7.5-7.5"
+              />
+            </svg>
+            <p>Perv</p>
+          </Box>
+        </Button>
+        <Button
+          _hover={{
+            bg: '#ffffff40',
+          }}
+          variant={'outline'}
+          textColor={'white'}
+          w={32}
+          onClick={() => {
+            const page = searchParams.get('page');
+            if (!page) {
+              router.push(`/transactions?page=1`);
+              return;
+            }
+            router.push(`/transactions?page=${parseInt(page) + 1}`);
+          }}
+        >
+          <Box display={'flex'} justifyContent={'center'} alignItems={'center'}>
+            <p>Next</p>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="white"
+              width={20}
+              height={20}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M8.25 4.5l7.5 7.5-7.5 7.5"
+              />
+            </svg>
+          </Box>
+        </Button>
+      </HStack>
     </>
   );
 };
-
